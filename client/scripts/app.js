@@ -2,6 +2,7 @@
 
 
 var msgs;
+var friends = [];
 
 var app = {};
 
@@ -43,11 +44,12 @@ app.fetch = function(){
 };
 
 app.clearMessages = function(){
-  $('#chats').remove();
+  $('#chats').empty();
 };
 
 app.addMessage = function(message){
-  $('#chats').append('<div class="text">' + message.text + '</div>');
+    // message.text.replace(//, '')
+    $('#chats').append('<a href="#" id="username" onclick="func(this)"> ' + message.username +' </a> <br> <div class="text">' + message.text + '</div> <br> <a href="#" class="roomname">' + message.roomname + '</a>');
 };
 
 app.addRoom = function(){
@@ -56,11 +58,18 @@ app.addRoom = function(){
 
 app.server = 'https://api.parse.com/1/classes/chatterbox';
 
+// temp solution!!!!!!!!!!!!!!!!!!!!!!!!!!! for adding friends
+var func = function(that){
+  console.log(that)
+  alert('test');
+}
+
 /*
  JQUERY
 */
 
 var print = function(item){
+  app.clearMessages();
   var results = item.results;
   _.each(results, function(result){
     app.addMessage(result);
@@ -74,9 +83,22 @@ $('document').ready(function(){
 
     //app.addMessage(msgs[0]);
   })
+
+  $('.submit').on("click", function(){
+    var msg = {}
+    msg.username = $('.nameInput').val();
+    msg.text = $('.textInput').val();
+    msg.roomname = $('.roomInput').val();
+
+    app.send(msg);
+  });
+
+  //Add friends
+  // $('#username').on('click', function(){
+  //   alert('test');
+  //   friends.push(this.text());
+  // });
 });
-
-
 
 
 
