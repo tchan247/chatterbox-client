@@ -3,6 +3,7 @@
 
 var msgs;
 var friends = [];
+var rooms = [];
 
 var app = {};
 
@@ -49,15 +50,13 @@ app.clearMessages = function(){
 
 app.addMessage = function(message){
   var weight = friends.indexOf(message.username) > -1? "bold" : "normal";
-  console.log(message.username)
-  console.log(friends)
-  // console.log(weight)
-  // message.text.replace(//, '')
-  // if(friends.indexOf(message.username) > -1) {
-    $('#chats').append('<a href="#" id="username" onclick="func(this)" style="font-weight:'+ weight +'"> ' + message.username +'</a> <br> <div class="text" style="font-weight:'+ weight +'"> ' + message.text + '</div> <br> <a href="#" class="roomname" style="font-weight:'+ weight +'"> ' + message.roomname + ' </a>');
-  // } else {
-  //   $('#chats').append('<a href="#" id="username" onclick="func(this)"> ' + message.username +' </a> <br> <div class="text">' + message.text + '</div> <br> <a href="#" class="roomname">' + message.roomname + '</a>');
-  // }
+
+  $('#chats').append('<a href="#" id="username" onclick="addMsg(this)" style="font-weight:'+ weight +'">' + message.username +'</a> <br> <div class="text" style="font-weight:'+ weight +'"> ' + message.text + '</div> <br> <a href="#" class="roomname" style="font-weight:'+ weight +'">' + message.roomname + ' </a>');
+
+  if(rooms.indexOf(message.roomname) === -1) {
+    rooms.push(message.roomname);
+    $('#roomSelect').append('<option onfocus="switchRoom(this)" value="' + message.roomname + '">' + message.roomname + '</option>');
+  }
 };
 
 app.addRoom = function(){
@@ -67,7 +66,7 @@ app.addRoom = function(){
 app.server = 'https://api.parse.com/1/classes/chatterbox';
 
 // temp solution!!!!!!!!!!!!!!!!!!!!!!!!!!! for adding friends
-var func = function(that){
+var addMsg = function(that){
   // console.log(that)
   var name = that.text;
   if(friends.indexOf(name) === -1) {
@@ -75,6 +74,10 @@ var func = function(that){
     friends.push(name);
   }
 }
+
+var switchRoom = function(that){
+  console.log(that);
+};
 
 /*
  JQUERY
