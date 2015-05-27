@@ -13,6 +13,7 @@ body {
     padding: 50px 60px;
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
+    display: inline-block;
 }
 
 #main h1 {
@@ -81,4 +82,18 @@ form input[type=text] {
 
 .spinner img {
     padding: 10px;
+}
+
+.friends {
+    width: 300px;
+    height: auto;
+    background-color: white;
+    float: right;
+    display: inline-block;
+    position: absolute;
+}
+
+.friends ul{
+    padding: 0;
+    list-style-type: none;
 }
